@@ -99,14 +99,14 @@ resource "azurerm_container_app" "frontend" {
   }
 
   template {
-    min_replicas = 1
-    max_replicas = 10
+    min_replicas = var.container_app_min_replicas
+    max_replicas = var.container_app_max_replicas
 
     container {
       name   = "main"
       image  = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
-      cpu    = 0.5
-      memory = "1.0Gi"
+      cpu    = var.container_cpu_cores
+      memory = var.container_memory_gb
 
       env {
         name  = "APPLICATIONINSIGHTS_CONNECTION_STRING"
@@ -121,7 +121,7 @@ resource "azurerm_container_app" "frontend" {
   }
 
   tags = merge(local.tags, {
-    "azd-service-name" = "rtaudio-client"
+    "azd-service-name" = "voxops-client"
   })
 }
 
@@ -503,7 +503,7 @@ resource "azurerm_container_app" "backend" {
   }
 
   tags = merge(local.tags, {
-    "azd-service-name" = "rtaudio-server"
+    "azd-service-name" = "voxops-server"
   })
 
   // Image is managed outside of terraform (i.e azd deploy)

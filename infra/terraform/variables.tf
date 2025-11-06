@@ -192,12 +192,12 @@ variable "mongo_collection_name" {
 }
 
 variable "container_app_min_replicas" {
-  description = "Minimum number of container app replicas for high availability"
+  description = "Minimum number of container app replicas (0 enables scale-to-zero on Consumption plan)"
   type        = number
-  default     = 5
+  default     = 0
   validation {
-    condition     = var.container_app_min_replicas >= 1 && var.container_app_min_replicas <= 25
-    error_message = "Container app min replicas must be between 1 and 25."
+    condition     = var.container_app_min_replicas >= 0 && var.container_app_min_replicas <= 25
+    error_message = "Container app min replicas must be between 0 and 25."
   }
 }
 
