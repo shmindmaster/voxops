@@ -16,7 +16,7 @@ services:
       path: ./Dockerfile
       context: .
       platform: linux/amd64
-      
+
   voxops-server:
     project: .
     host: containerapp
@@ -26,13 +26,15 @@ services:
       context: .
       platform: linux/amd64
 
-
 hooks:
-  preprovision:
-    shell: sh
-    run: devops/scripts/azd/preprovision.sh terraform
-    interactive: true
-    continueOnError: false
+  # Temporarily disabling preprovision hook for Windows non-interactive deployment.
+  # Original script performed Terraform remote state setup and variable exports.
+  # Using static tfvars file instead. Re-enable after adding Windows-compatible script.
+  # preprovision:
+  #   shell: sh
+  #   run: devops/scripts/azd/preprovision.sh terraform
+  #   interactive: true
+  #   continueOnError: false
 
   postprovision:
     shell: sh
