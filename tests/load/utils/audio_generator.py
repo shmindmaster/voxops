@@ -48,7 +48,7 @@ class LoadTestAudioGenerator:
         print(f"📂 Cache directory: {self.cache_dir}")
         print(f"🌍 Region: {os.getenv('AZURE_SPEECH_REGION')}")
         print(f"🔑 Using API Key: {'Yes' if os.getenv('AZURE_SPEECH_KEY') else 'No (DefaultAzureCredential)'}")
-    
+
     def _slugify(self, value: str, max_len: int = 60) -> str:
         """Create a filesystem-friendly slug from arbitrary text."""
         value = (value or "").strip().lower()
@@ -113,7 +113,7 @@ class LoadTestAudioGenerator:
         # Prefer a short phrase-based slug to aid identification
         prefix = self._slugify(prefix_source)
         return self.cache_dir / f"{prefix}_{shash}.pcm"
-    
+
     def generate_audio(
         self,
         text: str,
@@ -137,7 +137,7 @@ class LoadTestAudioGenerator:
         """
         voice = voice or self.synthesizer.voice
         cache_file = self._resolve_cache_path(text, voice, label)
-        
+
         # Return cached audio if available and not forcing regeneration
         if cache_file.exists() and not force_regenerate:
             print(f"📄 Using cached audio: {cache_file.name}")
@@ -162,7 +162,7 @@ class LoadTestAudioGenerator:
             cache_file.write_bytes(audio_bytes)
             duration_sec = len(audio_bytes) / (16000 * 2)
             print(f"✅ Cached {len(audio_bytes)} bytes → {cache_file.name} ({duration_sec:.2f}s)")
-            
+
             # Write sidecar metadata for human readability
             meta = {
                 "filename": cache_file.name,
@@ -188,7 +188,7 @@ class LoadTestAudioGenerator:
                     mf.write(json.dumps(meta, ensure_ascii=False) + "\n")
             except Exception as me:
                 print(f"⚠️  Failed to write metadata for {cache_file.name}: {me}")
-            
+
             return audio_bytes
 
         except Exception as e:

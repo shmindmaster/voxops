@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repository showcases a working implementation of Azure Communication Services, Azure Speech, and Azure OpenAI for building production-grade voice agents. 
+This repository showcases a working implementation of Azure Communication Services, Azure Speech, and Azure OpenAI for building production-grade voice agents.
 
 **Live Demo**: https://voxops.shtrial.com
 
@@ -37,7 +37,7 @@ This repository showcases a working implementation of Azure Communication Servic
 ## Key Changes from Original Sample
 
 1. **Branding**: Renamed from `art-voice-agent-accelerator` to `voxops`
-2. **Services**: 
+2. **Services**:
    - `rtaudio-client` → `voxops-client`
    - `rtaudio-server` → `voxops-server`
 3. **Organization**: Changed from "GBB AI" to "VoxOps Demo" in agent configurations
@@ -103,7 +103,7 @@ az containerapp hostname bind \
 
 This project is derived from the [Azure-Samples/art-voice-agent-accelerator](https://github.com/Azure-Samples/art-voice-agent-accelerator) repository, which is licensed under the MIT License.
 
-**Original Authors**: Azure Global Black Belt (GBB) AI Team  
+**Original Authors**: Azure Global Black Belt (GBB) AI Team
 **Original License**: MIT (see LICENSE file)
 
 All foundational voice agent architecture, ACS integration, STT/TTS pipelines, and orchestration patterns are from the original Azure sample. VoxOps is a demonstration deployment with branding and configuration changes for the VoxOps demo environment.

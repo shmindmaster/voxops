@@ -36,18 +36,21 @@ azd env set NAME_PREFIX voxops
 Before deploying, ensure you have set up or plan to configure:
 
 **Azure Speech Service** (East US 2):
+
 ```powershell
 azd env set AZURE_SPEECH_REGION eastus2
 azd env set AZURE_SPEECH_KEY <your-speech-key>
 ```
 
 **Azure OpenAI** (East US 2):
+
 ```powershell
 azd env set AZURE_OPENAI_ENDPOINT https://<your-openai-resource>.openai.azure.com/
 azd env set AZURE_OPENAI_API_KEY <your-api-key>
 ```
 
 **Azure Communication Services** (optional for PSTN):
+
 ```powershell
 azd env set ACS_CONNECTION_STRING <your-acs-connection-string>
 ```
@@ -66,6 +69,7 @@ azd up --no-prompt
 ```
 
 This will:
+
 - Create resource group `rg-voxops` in East US 2
 - Provision all Azure resources via Terraform
 - Build and deploy both container apps (voxops-client and voxops-server)
@@ -140,9 +144,11 @@ azd deploy voxops-client
 ### 7. Verify Deployment
 
 Open browser to:
+
 - https://voxops.shtrial.com (or the Container App FQDN if custom domain not configured)
 
 Test scenarios:
+
 1. "I need to file a new claim" → FNOL intake
 2. "What's my deductible?" → General info
 3. "I want roadside assistance added" → Policy update
@@ -154,11 +160,13 @@ Test scenarios:
 ### Container Apps Scaling (Demo/Cost Optimization)
 
 Both apps are configured for **Consumption plan** in the Terraform defaults:
+
 - **Min replicas**: 5 (can reduce to 0-1 for demo)
 - **Max replicas**: 50
 - Scale to zero when idle = cost-effective for demos
 
 To adjust for demo (optional), edit `infra/terraform/variables.tf`:
+
 ```hcl
 variable "container_app_min_replicas" {
   default = 0  # or 1 for faster cold starts
@@ -168,6 +176,7 @@ variable "container_app_min_replicas" {
 ### Model Deployments
 
 Default models in `infra/terraform/variables.tf`:
+
 - gpt-4o (2024-11-20) - 150 capacity
 - gpt-4o-mini (2024-07-18) - 150 capacity
 - gpt-4.1-mini (2025-04-14) - 150 capacity
@@ -180,18 +189,21 @@ For demo, consider using only `gpt-4o-mini` to reduce costs.
 ### If deployment fails:
 
 1. Check Terraform state:
+
 ```powershell
 cd infra/terraform
 terraform plan
 ```
 
 2. Check Container Apps logs:
+
 ```powershell
 az containerapp logs show -n voxops-server -g rg-voxops --tail 50
 az containerapp logs show -n voxops-client -g rg-voxops --tail 50
 ```
 
 3. Verify environment variables:
+
 ```powershell
 azd env get-values
 ```
@@ -210,5 +222,5 @@ azd env get-values
 
 ---
 
-**Repository**: https://github.com/shmindmaster/voxops  
+**Repository**: https://github.com/shmindmaster/voxops
 **Live Demo** (after deployment): https://voxops.shtrial.com

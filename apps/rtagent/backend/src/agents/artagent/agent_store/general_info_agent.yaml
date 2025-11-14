@@ -25,10 +25,10 @@ voice:
   rate: "+15%" # Speech rate (moderate pace for general info)
 
 prompts:
-  path: voice_agent_general_info.jinja   # see template below
+  path: voice_agent_general_info.jinja # see template below
 
 tools:
-  - handoff_claim_agent      # route to Claims-Intake AI agent
-  - escalate_human           # non-emergency live-agent transfer
-  - escalate_emergency       # still watch for life-threatening events
+  - handoff_claim_agent # route to Claims-Intake AI agent
+  - escalate_human # non-emergency live-agent transfer
+  - escalate_emergency # still watch for life-threatening events
   - find_information_for_policy
